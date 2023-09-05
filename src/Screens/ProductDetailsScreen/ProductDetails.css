@@ -1,0 +1,24 @@
+.product-details-img {
+  background-color: #f4f4f4;
+  box-shadow: #dfdfdf38 0px 0px 0px 3px;
+}
+
+.quantity-controller {
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.quantity-controller:hover {
+  background-color: #980f98;
+  color: #fff;
+}
+
+.cart-btn {
+  background-color: #980f98!important;
+  transition: all 0.3s;
+}
+
+.cart-btn:hover {
+  background-color: #c20ac2!important;
+}

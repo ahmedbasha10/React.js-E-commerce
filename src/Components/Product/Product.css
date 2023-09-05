@@ -1,0 +1,19 @@
+.product-card .product-image {
+  text-align: center;
+  background-color: #f4f4f4;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  box-shadow: #dfdfdf38 0px 0px 0px 3px;
+}
+
+.product-card .product-image img {
+  width: 50%;
+  height: 150px;
+  margin: auto;
+  transition: all 0.3s;
+}
+
+.product-card .product-image:hover img {
+  transform: scale(1.2);
+}

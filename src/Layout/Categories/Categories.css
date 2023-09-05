@@ -1,0 +1,36 @@
+.categories-content .Headphone {
+  background-image: url("../../assets/category/cat-1.jpg");
+}
+
+.categories-content .WireleesAirbods {
+  background: url("../../assets/category/cat-4.jpg");
+}
+
+.categories-content .BluetoothSpeakers {
+  background: url("../../assets/category/cat-2.jpg");
+}
+
+.categories-content .SmartWatches {
+  background: url("../../assets/category/cat-3.jpg");
+}
+
+.categories-content .category-card {
+  height: 150px;
+  width: 23%;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 1200px) {
+  .categories-content .category-card {
+    width: 48%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .categories-content .category-card {
+    width: 100%;
+  }
+}
