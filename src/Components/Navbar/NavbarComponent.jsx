@@ -1,9 +1,18 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Badge, Container, Nav, Navbar } from "react-bootstrap";
 import { Search, Heart, Cart } from "react-bootstrap-icons";
 import "./NavbarComponent.css";
+import { useCart } from "../../Layout/Cart/CartContext";
+import { useSelector } from "react-redux";
 
 const NavbarComponent = () => {
+  const cart = useSelector((state) => state.cart);
+  const { showCart, setShowCart } = useCart();
+
+  const toggleCart = () => {
+    setShowCart(!showCart);
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-dark p-3" fixed>
       <Container>
@@ -33,8 +42,8 @@ const NavbarComponent = () => {
             <Nav.Link className="text-light">
               <Heart size="20px" />
             </Nav.Link>
-            <Nav.Link className="text-light">
-              <Cart size="20px" />
+            <Nav.Link className="text-light" onClick={toggleCart}>
+              <Cart size="20px" /> <Badge bg="primary">{cart?.length}</Badge>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

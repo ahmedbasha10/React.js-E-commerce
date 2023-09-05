@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { fetchProductById } from "../../Redux/Slices/Products-Slice";
+import { addItemToCart } from "../../Redux/Slices/Cart-Slice";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -28,6 +29,11 @@ const ProductDetails = () => {
       if (prevQuantity === 1) return 1;
       return prevQuantity - 1;
     });
+  };
+
+  const handleAddItemToCart = () => {
+    const newProduct = { ...product, quantity: quantity };
+    dispatch(addItemToCart(newProduct))
   };
 
   return (
@@ -67,7 +73,10 @@ const ProductDetails = () => {
                   </span>
                 </div>
                 <div className="col-lg-5 col-md-4 col-sm-12">
-                  <Button className="cart-btn rounded-0 pt-2 pb-2 ps-3 pe-3 border-0">
+                  <Button
+                    className="cart-btn rounded-0 pt-2 pb-2 ps-3 pe-3 border-0"
+                    onClick={handleAddItemToCart}
+                  >
                     <CartPlusFill size={20} /> ADD TO CART
                   </Button>
                 </div>

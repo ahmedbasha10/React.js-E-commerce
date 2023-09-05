@@ -5,17 +5,13 @@ import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slices/Products-Slice";
 
-
 const Products = () => {
-  const products =  useSelector((state) => {
-    console.log(state);
-    return state.products;
-  });
+  const products = useSelector((state) => state.products);
   const category = useSelector((state) => state.categories);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("fetch all")
+    console.log("fetch all");
     dispatch(fetchProducts());
   }, []);
 
