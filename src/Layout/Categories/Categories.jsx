@@ -12,29 +12,37 @@ const Categories = () => {
       <Container>
         <div className="categories-content d-flex justify-content-between flex-wrap">
           <div
-            className="category-card Headphone"
+            className="category-card"
             onClick={() => {
               dispatch(setCategory("Headphone"));
             }}
-          ></div>
+          >
+            <div className="img-handler Headphone"></div>
+          </div>
           <div
-            className="category-card WireleesAirbods"
+            className="category-card"
             onClick={() => {
               dispatch(setCategory("Airpods"));
             }}
-          ></div>
+          >
+            <div className="img-handler WireleesAirbods"></div>
+          </div>
           <div
-            className="category-card BluetoothSpeakers"
+            className="category-card"
             onClick={() => {
               dispatch(setCategory("Speaker"));
             }}
-          ></div>
+          >
+            <div className="img-handler BluetoothSpeakers"></div>
+          </div>
           <div
-            className="category-card SmartWatches"
+            className="category-card"
             onClick={() => {
               dispatch(setCategory("Smartwatch"));
             }}
-          ></div>
+          >
+            <div className="img-handler SmartWatches"></div>
+          </div>
         </div>
       </Container>
     </section>

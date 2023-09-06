@@ -1,7 +1,6 @@
 .categories-content .Headphone {
   background-image: url("../../assets/category/cat-1.jpg");
 }
-
 .categories-content .WireleesAirbods {
   background: url("../../assets/category/cat-4.jpg");
 }
@@ -18,9 +17,21 @@
   height: 150px;
   width: 23%;
   margin-bottom: 20px;
-  background-size: cover;
+  overflow: hidden;
+}
+
+.categories-content .category-card .img-handler {
+  width: 100%;
+  height: 100%;
   background-position: center center;
+  background-size: cover;
   background-repeat: no-repeat;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.categories-content .category-card .img-handler:hover {
+  transform: scale(1.2);
 }
 
 @media screen and (max-width: 1200px) {

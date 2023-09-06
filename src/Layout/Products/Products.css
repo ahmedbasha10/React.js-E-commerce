@@ -1,0 +1,13 @@
+.products-header {
+  position: relative;
+}
+
+.products-header::after {
+  content: "";
+  width: 50px;
+  height: 3px;
+  position: absolute;
+  top: 30px;
+  left: 0px;
+  background: #700ab5;
+}

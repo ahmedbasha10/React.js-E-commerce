@@ -1,0 +1,21 @@
+.Newsletter {
+  height: 400px;
+  background-image: url("../../assets/newsletter-bg.jpeg");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.Newsletter-content p {
+  color: rgb(173, 173, 173);
+  font-weight: bold;
+}
+
+.social-icon {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.social-icon:hover {
+  color: #980f98;
+}

@@ -24,6 +24,7 @@ const Products = () => {
   return (
     <section className="mt-5">
       <Container>
+        <h4 className="products-header mb-4">POPULAR PRODUCTS</h4>
         <div className="row">
           {filteredProducts &&
             filteredProducts.map((product) => (

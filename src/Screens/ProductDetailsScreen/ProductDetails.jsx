@@ -2,16 +2,25 @@ import React, { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { CartPlusFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { fetchProductById } from "../../Redux/Slices/Products-Slice";
 import { addItemToCart } from "../../Redux/Slices/Cart-Slice";
+import Product from "../../Components/Product/Product";
 
 const ProductDetails = () => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  
   const { productId } = useParams();
   const product = useSelector((state) =>
     state.products.find((product) => product.id === parseInt(productId))
   );
+  const relatedProducts = useSelector((state) => {
+    return state.products.filter((p) => p.category === product?.category);
+  }) 
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -86,6 +95,13 @@ const ProductDetails = () => {
         ) : (
           <h1>loading....</h1>
         )}
+        <h4 className="products-header mb-4 mt-5">RELATED PRODUCTS</h4>
+        <div className="row">
+          {relatedProducts &&
+            relatedProducts.map((product) => (
+              <Product key={product.id} product={product} />
+            ))}
+        </div>
       </Container>
     </section>
   );
