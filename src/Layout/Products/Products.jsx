@@ -4,22 +4,30 @@ import { Container } from "react-bootstrap";
 import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slices/Products-Slice";
+import { useSearch } from "../../Components/Navbar/SearchContext";
 
 const Products = () => {
   const products = useSelector((state) => state.products);
   const category = useSelector((state) => state.categories);
   const dispatch = useDispatch();
+  const { search } = useSearch();
 
   useEffect(() => {
-    console.log("fetch all");
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   const filteredProducts = useMemo(() => {
-    return category
+    let filtered = category
       ? products.filter((product) => product.category === category)
       : products;
-  }, [category, products]);
+
+    if (search) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    return filtered;
+  }, [category, products, search]);
 
   return (
     <section className="mt-5">

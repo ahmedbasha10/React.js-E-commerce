@@ -13,7 +13,6 @@ export const loadState = () => {
     if (!serializedState) {
       return undefined;
     }
-    console.log("reload: " + serializedState);
     return JSON.parse(serializedState);
   } catch (err) {
     console.log(err);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { CartPlusFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,14 +13,20 @@ const ProductDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
-  
+
   const { productId } = useParams();
   const product = useSelector((state) =>
     state.products.find((product) => product.id === parseInt(productId))
   );
-  const relatedProducts = useSelector((state) => {
-    return state.products.filter((p) => p.category === product?.category);
-  }) 
+  const products = useSelector((state) => state.products);
+
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    return products.filter(
+      (p) => p.category === product?.category && p.id !== parseInt(productId)
+    );
+  }, [product, products, productId]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -42,7 +48,7 @@ const ProductDetails = () => {
 
   const handleAddItemToCart = () => {
     const newProduct = { ...product, quantity: quantity };
-    dispatch(addItemToCart(newProduct))
+    dispatch(addItemToCart(newProduct));
   };
 
   return (
@@ -98,9 +104,9 @@ const ProductDetails = () => {
         <h4 className="products-header mb-4 mt-5">RELATED PRODUCTS</h4>
         <div className="row">
           {relatedProducts &&
-            relatedProducts.map((product) => (
-              <Product key={product.id} product={product} />
-            ))}
+            relatedProducts.map((product) => {
+              return <Product key={product.id} product={product} />;
+            })}
         </div>
       </Container>
     </section>

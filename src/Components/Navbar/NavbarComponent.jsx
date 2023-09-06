@@ -1,16 +1,39 @@
-import React from "react";
-import { Badge, Container, Nav, Navbar } from "react-bootstrap";
+import React, { useRef } from "react";
+import {
+  Badge,
+  Button,
+  Col,
+  Container,
+  Form,
+  Nav,
+  Navbar,
+  Row,
+} from "react-bootstrap";
 import { Search, Heart, Cart } from "react-bootstrap-icons";
-import "./NavbarComponent.css";
 import { useCart } from "../../Layout/Cart/CartContext";
+import { useSearch } from "./SearchContext";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./NavbarComponent.css";
 
 const NavbarComponent = () => {
   const cart = useSelector((state) => state.cart);
   const { showCart, setShowCart } = useCart();
+  const { setSearch } = useSearch();
+  const searchRef = useRef();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleCart = () => {
     setShowCart(!showCart);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (location.pathname !== "/") {
+      navigate("/");
+    }
+    setSearch(searchRef.current.value);
   };
 
   return (
@@ -36,9 +59,27 @@ const NavbarComponent = () => {
             </Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link className="text-light">
-              <Search size="20px" />
-            </Nav.Link>
+            <Form inline="true">
+              <Row>
+                <Col xs="auto" className="pe-0">
+                  <Form.Control
+                    type="text"
+                    placeholder="Search"
+                    className=" mr-sm-2"
+                    ref={searchRef}
+                  />
+                </Col>
+                <Col xs="auto" className="ps-0">
+                  <Button
+                    type="submit"
+                    className="text-light bg-transparent border-0 m-0"
+                    onClick={handleSearch}
+                  >
+                    <Search size={20} />
+                  </Button>
+                </Col>
+              </Row>
+            </Form>
             <Nav.Link className="text-light">
               <Heart size="20px" />
             </Nav.Link>
