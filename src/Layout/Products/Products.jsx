@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import Product from "../../Components/Product/Product";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import "./Products.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slices/Products-Slice";
@@ -14,12 +14,12 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
+  }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = category
-      ? products.filter((product) => product.category === category)
-      : products;
+      ? products.data.filter((product) => product.category === category)
+      : products.data;
 
     if (search) {
       filtered = filtered.filter((product) =>
@@ -33,12 +33,20 @@ const Products = () => {
     <section className="mt-5">
       <Container>
         <h4 className="products-header mb-4">POPULAR PRODUCTS</h4>
-        <div className="row">
-          {filteredProducts &&
-            filteredProducts.map((product) => (
-              <Product key={product.id} product={product} />
-            ))}
-        </div>
+        {products?.loading ? (
+          <div className="text-center">
+            <Spinner animation="border" />
+          </div>
+        ) : products?.error ? (
+          <h1>Error... {products.error}</h1>
+        ) : (
+          <div className="row">
+            {filteredProducts &&
+              filteredProducts.map((product) => (
+                <Product key={product.id} product={product} />
+              ))}
+          </div>
+        )}
       </Container>
     </section>
   );

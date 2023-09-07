@@ -10,6 +10,7 @@ const Product = ({ product }) => {
           <img
             src={process.env.PUBLIC_URL + product.imageURL}
             alt={product.name}
+            decoding="async"
           />
         </div>
       </Link>

@@ -1,15 +1,17 @@
-export const saveState = (state) => {
+export const saveState = (state, stateName) => {
+  console.log(stateName + " is saving... " + state);
   try {
     const serializedState = JSON.stringify(state);
-    localStorage.setItem("appState", serializedState);
+    localStorage.setItem(stateName, serializedState);
   } catch (err) {
     console.log(err);
   }
 };
 
-export const loadState = () => {
+export const loadState = (stateName) => {
+  console.log(stateName + " is loading...");
   try {
-    const serializedState = localStorage.getItem("appState");
+    const serializedState = localStorage.getItem(stateName);
     if (!serializedState) {
       return undefined;
     }

@@ -18,16 +18,43 @@ export const fetchProductById = createAsyncThunk(
   }
 );
 
+const productInitialState = {
+  loading: false,
+  error: "",
+  data: [],
+};
+
 export const productsSlice = createSlice({
-  initialState: [],
+  initialState: productInitialState,
   name: "productsSlice",
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(fetchProducts.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchProducts.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+      state.data = [];
+    });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      return action.payload;
+      state.loading = false;
+      state.error = "";
+      state.data = action.payload;
+    });
+
+    builder.addCase(fetchProductById.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchProductById.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+      state.data = [];
     });
     builder.addCase(fetchProductById.fulfilled, (state, action) => {
-      return [action.payload];
+      state.loading = false;
+      state.error = "";
+      state.data = [action.payload];
     });
   },
 });

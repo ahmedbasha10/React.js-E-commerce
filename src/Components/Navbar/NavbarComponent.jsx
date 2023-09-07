@@ -80,9 +80,6 @@ const NavbarComponent = () => {
                 </Col>
               </Row>
             </Form>
-            <Nav.Link className="text-light">
-              <Heart size="20px" />
-            </Nav.Link>
             <Nav.Link className="text-light" onClick={toggleCart}>
               <Cart size="20px" /> <Badge bg="primary">{cart?.length}</Badge>
             </Nav.Link>
