@@ -4,16 +4,17 @@ import {
   Button,
   Col,
   Container,
+  Dropdown,
   Form,
   Nav,
   Navbar,
   Row,
 } from "react-bootstrap";
-import { Search, Cart } from "react-bootstrap-icons";
+import { Search, Cart, Person } from "react-bootstrap-icons";
 import { useCart } from "../../Utils/Context";
 import { useSearch } from "../../Utils/Context";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./NavbarComponent.css";
 
 const NavbarComponent = () => {
@@ -82,6 +83,9 @@ const NavbarComponent = () => {
             </Form>
             <Nav.Link className="text-light" onClick={toggleCart}>
               <Cart size="20px" /> <Badge bg="primary">{cart?.length}</Badge>
+            </Nav.Link>
+            <Nav.Link className="text-light" href="/user">
+              <Person size={30} />
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
