@@ -1,0 +1,11 @@
+.product-details-img {
+  overflow: hidden;
+}
+
+.product-details-img img {
+  transform-origin: center;
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  transition: all 0.1s;
+}
