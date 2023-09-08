@@ -4,8 +4,8 @@ import NavbarComponent from "./Components/Navbar/NavbarComponent";
 import Home from "./Screens/HomeScreen/Home";
 import ProductDetails from "./Screens/ProductDetailsScreen/ProductDetails";
 import Cart from "./Layout/Cart/Cart";
-import { CartProvider } from "./Layout/Cart/CartContext";
-import { SearchProvider } from "./Components/Navbar/SearchContext";
+import { CartProvider } from "./Utils/Context";
+import { SearchProvider } from "./Utils/Context";
 
 function App() {
   return (

@@ -5,7 +5,6 @@ import { useLocation, useParams } from "react-router-dom";
 import "./ProductDetails.css";
 import { fetchProductById } from "../../Redux/Slices/Products-Slice";
 import Product from "../../Components/Product/Product";
-import Skeleton from "react-loading-skeleton";
 import ProductDetailsComponent from "../../Components/ProductDetails/ProductDetailsComponent";
 import Spinner from 'react-bootstrap/Spinner';
 

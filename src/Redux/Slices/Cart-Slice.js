@@ -5,11 +5,11 @@ export const cartSlice = createSlice({
   name: "cartSlice",
   reducers: {
     addItemToCart: (state, action) => {
-      const product = state.find((product) => product.id === action.payload.id);
+      const product = state.find((product) => product.id === action.payload.id); // Find product if exist before
       if (product) {
-        product.quantity += action.payload.quantity;
+        product.quantity += action.payload.quantity;    // increase its quantity if found
       } else {
-        state.push(action.payload);
+        state.push(action.payload);   // add new product to the cart
       }
     },
     incrementQuantity: (state, action) => {
@@ -23,15 +23,15 @@ export const cartSlice = createSlice({
     decrementQuantity: (state, action) => {
       const product = state.find((product) => product.id === action.payload);
       if (product) {
-        if (product.quantity > 1) {
+        if (product.quantity > 1) {   // take care to not be less than 1
           product.quantity -= 1;
         }
       } else {
         console.log("product not found");
       }
     },
-    deleteItem: (state, action) => {
-      return state.filter((product) => product.id !== action.payload);
+    deleteItem: (state, action) => {  // remove product by its ID
+      return state.filter((product) => product.id !== action.payload); 
     },
   },
 });

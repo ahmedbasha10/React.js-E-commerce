@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+// Fetch all products from json server
 export const fetchProducts = createAsyncThunk(
   "productsSlice/fetchProducts",
   async () => {
@@ -9,6 +10,7 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+// Fetch Single product by ID from json server
 export const fetchProductById = createAsyncThunk(
   "productsSlice/fetchProductById",
   async (id) => {
@@ -29,6 +31,7 @@ export const productsSlice = createSlice({
   name: "productsSlice",
   reducers: {},
   extraReducers: (builder) => {
+    // Fetch all products stages
     builder.addCase(fetchProducts.pending, (state, action) => {
       state.loading = true;
     });
@@ -43,6 +46,7 @@ export const productsSlice = createSlice({
       state.data = action.payload;
     });
 
+    // Fetch product by id stages
     builder.addCase(fetchProductById.pending, (state, action) => {
       state.loading = true;
     });

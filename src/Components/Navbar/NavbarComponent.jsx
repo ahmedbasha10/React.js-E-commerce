@@ -9,9 +9,9 @@ import {
   Navbar,
   Row,
 } from "react-bootstrap";
-import { Search, Heart, Cart } from "react-bootstrap-icons";
-import { useCart } from "../../Layout/Cart/CartContext";
-import { useSearch } from "./SearchContext";
+import { Search, Cart } from "react-bootstrap-icons";
+import { useCart } from "../../Utils/Context";
+import { useSearch } from "../../Utils/Context";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./NavbarComponent.css";
