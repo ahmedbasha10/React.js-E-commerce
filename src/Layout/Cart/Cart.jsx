@@ -6,13 +6,14 @@ import { useSelector } from "react-redux";
 
 const Cart = () => {
   const { showCart, setShowCart } = useCart();
-  const cart = useSelector((state) => state.cart);
-
+  const userId = useSelector((state) => state.auth.user?._id);
+  const cart = useSelector((state) => state.cart[userId]);
+ 
   const totalPrice = useMemo(() => {
-    if (cart.length === 0) {
+    if (cart?.length === 0) {
       return 0;
     }
-    return cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    return cart?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
   }, [cart]);
 
   const handleClose = () => {
@@ -26,12 +27,12 @@ const Cart = () => {
       </Offcanvas.Header>
       <Offcanvas.Body className="d-flex flex-column justify-content-between">
         <div>
-          {cart && cart.length === 0 ? (
+          {cart?.length === 0 || !cart ? (
             <div>
               <img src="/assets/Empty-cart.jpeg" alt="empty cart" className="w-100 h-100"/>
             </div>
           ) : (
-            cart.map((item) => (
+            cart?.map((item) => (
               <div key={item.id}>
                 <CartItem product={item} />
                 <hr />

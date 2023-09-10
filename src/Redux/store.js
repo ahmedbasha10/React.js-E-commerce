@@ -32,6 +32,9 @@ export const store = configureStore({
 });
 
 store.subscribe(() => {
+  const authState = store.getState().auth;
+  saveState(authState, statesNames.AUTH_STATE);
+
   const productsState = store.getState().products;
   if (!isEqual(productsState, productsInitialState)) {
     console.log("products saving");
@@ -42,11 +45,5 @@ store.subscribe(() => {
   if (!isEqual(cartState, cartInitialState)) {
     console.log("cart saving");
     saveState(cartState, statesNames.CART_STATE);
-  }
-
-  const authState = store.getState().auth;
-  if (!isEqual(authState, authInitialState)) {
-    console.log("auth saving");
-    saveState(authState, statesNames.AUTH_STATE);
   }
 });

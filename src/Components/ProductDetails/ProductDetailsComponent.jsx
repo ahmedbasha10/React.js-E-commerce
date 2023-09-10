@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { addItemToCart } from "../../Redux/Slices/Cart-Slice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Row } from "react-bootstrap";
 import { CartPlusFill } from "react-bootstrap-icons";
 import "./ProductDetailsComponent.css";
 
 const ProductDetailsComponent = ({ product }) => {
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.user._id);
   // quantity of product for adding item to cart
   const [quantity, setQuantity] = useState(1);
 
@@ -23,7 +24,7 @@ const ProductDetailsComponent = ({ product }) => {
 
   const handleAddItemToCart = () => {
     const newProduct = { ...product, quantity: quantity };
-    dispatch(addItemToCart(newProduct));
+    dispatch(addItemToCart({userId, newProduct}));
   };
 
   // Image zooming when hover

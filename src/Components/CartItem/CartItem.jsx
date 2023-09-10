@@ -9,6 +9,7 @@ import {
 } from "../../Redux/Slices/Cart-Slice";
 
 const CartItem = ({ product }) => {
+  const userId = useSelector((state) => state.auth.user?._id);
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   return (
@@ -24,14 +25,22 @@ const CartItem = ({ product }) => {
         <h6 className="mb-3">{product?.name}</h6>
         <div className="me-3 mb-3 w-75 border border-2 d-flex align-items-center justify-content-between m-0 p-0">
           <span
-            onClick={() => dispatch(decrementQuantity(product?.id))}
+            onClick={() =>
+              dispatch(
+                decrementQuantity({ userId: userId, productId: product?.id })
+              )
+            }
             className="quantity-controller border-end border-2 h-100 w-25 d-flex align-items-center justify-content-center p-2"
           >
             -
           </span>
           <span>{product?.quantity}</span>
           <span
-            onClick={() => dispatch(incrementQuantity(product?.id))}
+            onClick={() =>
+              dispatch(
+                incrementQuantity({ userId: userId, productId: product?.id })
+              )
+            }
             className="quantity-controller border-start border-2 h-100 w-25 d-flex align-items-center justify-content-center p-2"
           >
             +
@@ -43,7 +52,9 @@ const CartItem = ({ product }) => {
         <Trash3Fill
           size={30}
           className="trash-icon"
-          onClick={() => dispatch(deleteItem(product.id))}
+          onClick={() =>
+            dispatch(deleteItem({ userId: userId, productId: product?.id }))
+          }
         />
       </div>
     </div>

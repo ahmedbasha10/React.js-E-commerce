@@ -9,7 +9,7 @@ import {
   Navbar,
   Row,
 } from "react-bootstrap";
-import { Search, Cart, Person, PersonFillLock } from "react-bootstrap-icons";
+import { Search, Cart, Person } from "react-bootstrap-icons";
 import { useCart } from "../../Utils/Context";
 import { useSearch } from "../../Utils/Context";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,9 +18,9 @@ import "./NavbarComponent.css";
 import { logout } from "../../Redux/Slices/Auth-Slice";
 
 const NavbarComponent = () => {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart[user.user?._id]);
+  const dispatch = useDispatch();
   const { showCart, setShowCart } = useCart();
   const { setSearch } = useSearch();
   const searchRef = useRef();
@@ -28,7 +28,9 @@ const NavbarComponent = () => {
   const navigate = useNavigate();
 
   const toggleCart = () => {
-    setShowCart(!showCart);
+    if (user.token) {
+      setShowCart(!showCart);
+    }
   };
 
   const handleSearch = (e) => {
@@ -37,10 +39,6 @@ const NavbarComponent = () => {
       navigate("/");
     }
     setSearch(searchRef.current.value);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
   };
 
   return (
@@ -87,15 +85,18 @@ const NavbarComponent = () => {
                 </Col>
               </Row>
             </Form>
-            <Nav.Link className="text-light" onClick={toggleCart}>
-              <Cart size="20px" /> <Badge bg="primary">{cart?.length}</Badge>
-            </Nav.Link>
+            {user.token && (
+              <Nav.Link className="text-light" onClick={toggleCart}>
+                <Cart size="20px" /> <Badge bg="primary">{cart?.length}</Badge>
+              </Nav.Link>
+            )}
+
             {user.token ? (
               <>
                 <Nav.Link className="text-light">{user.user.username}</Nav.Link>
                 <Button
                   className="text-light bg-dark border-0"
-                  onClick={handleLogout}
+                  onClick={() => dispatch(logout())}
                 >
                   Logout
                 </Button>

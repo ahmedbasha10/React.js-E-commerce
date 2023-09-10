@@ -1,19 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const cartSlice = createSlice({
-  initialState: [],
+  initialState: {},
   name: "cartSlice",
   reducers: {
     addItemToCart: (state, action) => {
-      const product = state.find((product) => product.id === action.payload.id); // Find product if exist before
-      if (product) {
-        product.quantity += action.payload.quantity;    // increase its quantity if found
+      const { userId, newProduct } = action.payload;
+      // if user is not exist create new user
+      if (!state[userId]) {
+        state[userId] = [];
+      }
+      // get cart of user and search if the product exists
+      const cart = state[userId];
+      const existingProduct = cart.find((item) => item.id === newProduct.id);
+
+      if (existingProduct) {
+        existingProduct.quantity += newProduct.quantity;
       } else {
-        state.push(action.payload);   // add new product to the cart
+        cart.push(newProduct);
       }
     },
     incrementQuantity: (state, action) => {
-      const product = state.find((product) => product.id === action.payload);
+      const { userId, productId } = action.payload;
+      const cart = state[userId];
+
+      const product = cart.find((product) => product.id === productId);
       if (product) {
         product.quantity += 1;
       } else {
@@ -21,17 +32,25 @@ export const cartSlice = createSlice({
       }
     },
     decrementQuantity: (state, action) => {
-      const product = state.find((product) => product.id === action.payload);
+      const { userId, productId } = action.payload;
+      const cart = state[userId];
+
+      const product = cart.find((product) => product.id === productId);
       if (product) {
-        if (product.quantity > 1) {   // take care to not be less than 1
+        if (product.quantity > 1) {
+          // take care to not be less than 1
           product.quantity -= 1;
         }
       } else {
         console.log("product not found");
       }
     },
-    deleteItem: (state, action) => {  // remove product by its ID
-      return state.filter((product) => product.id !== action.payload); 
+    deleteItem: (state, action) => {
+      const { userId, productId } = action.payload;
+      // remove product by its ID
+      state[userId] = state[userId].filter(
+        (product) => product.id !== productId
+      );
     },
   },
 });
