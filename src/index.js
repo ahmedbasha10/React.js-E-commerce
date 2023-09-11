@@ -4,11 +4,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./Redux/store";
-import {
-  CartProvider,
-  NotificationProvider,
-  SearchProvider,
-} from "./Utils/Context";
+import { CartProvider, NotificationProvider } from "./Utils/Context";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -17,11 +13,9 @@ root.render(
   <Provider store={store}>
     <BrowserRouter>
       <CartProvider>
-        <SearchProvider>
-          <NotificationProvider>
-            <App />
-          </NotificationProvider>
-        </SearchProvider>
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
       </CartProvider>
     </BrowserRouter>
   </Provider>

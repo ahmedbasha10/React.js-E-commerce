@@ -17,23 +17,6 @@ export const useCart = () => {
   return useContext(CartContext);
 };
 
-// Search context to get value of search for any other component
-const SearchContext = createContext();
-
-export const SearchProvider = ({ children }) => {
-  const [search, setSearch] = useState("");
-
-  return (
-    <SearchContext.Provider value={{ search, setSearch }}>
-      {children}
-    </SearchContext.Provider>
-  );
-};
-
-export const useSearch = () => {
-  return useContext(SearchContext);
-};
-
 // Notification context
 const NotificationContext = createContext();
 
