@@ -1,19 +1,19 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Product from "../../Components/Product/Product";
 import { Container, Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../Redux/Slices/Products-Slice";
-import { useSearch } from "../../Utils/Context";
 import usePagination from "../../Utils/PaginationHook";
 import DropdownButton from "../../Components/DropdownButton/DropdownButton";
 import PaginationList from "../../Components/PaginationList/PaginationList";
+import SearchBar from "../../Components/SearchBar/SearchBar";
 import "./Products.css";
 
 const Products = () => {
   const products = useSelector((state) => state.products);
   const category = useSelector((state) => state.categories);
   const dispatch = useDispatch();
-  const { search } = useSearch();
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -42,12 +42,16 @@ const Products = () => {
     setItemsPerPage,
   ] = usePagination(filteredProducts);
 
+  const handleSearch = (searchValue) => {
+    setSearch(searchValue);
+  };
+
   return (
     <section className="mt-5">
       <Container>
         <div className="d-flex justify-content-between">
           <h4 className="products-header mb-4">POPULAR PRODUCTS</h4>
-          {/* used to select number of products to display per page */}
+          <SearchBar onSearch={handleSearch} />
           <DropdownButton
             itemsPerPage={itemsPerPage}
             setItemsPerPage={setItemsPerPage}

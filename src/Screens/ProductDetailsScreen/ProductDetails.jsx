@@ -10,8 +10,6 @@ import usePagination from "../../Utils/PaginationHook";
 import PaginationList from "../../Components/PaginationList/PaginationList";
 import DropdownButton from "../../Components/DropdownButton/DropdownButton";
 import "./ProductDetails.css";
-// import Notification from "../../Components/Notification/Notification";
-// import { useNotification } from "../../Utils/Context";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -63,7 +61,7 @@ const ProductDetails = () => {
         ) : (
           <h1>Not Found</h1>
         )}
-        {paginatedProducts.length > 0 && (
+        {paginatedProducts?.length > 0 && (
           <>
             <div className="d-flex justify-content-between mt-5">
               <h4 className="products-header mb-4">POPULAR PRODUCTS</h4>
