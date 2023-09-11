@@ -1,24 +1,33 @@
 import React from "react";
 import { Trash3Fill } from "react-bootstrap-icons";
-import "./CartItem.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
   decrementQuantity,
   deleteItem,
   incrementQuantity,
 } from "../../Redux/Slices/Cart-Slice";
+import { useNotification } from "../../Utils/Context";
+import "./CartItem.css";
 
 const CartItem = ({ product }) => {
   const userId = useSelector((state) => state.auth.user?._id);
-  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const { setShowNotification, setNotificationMessage } = useNotification();
+
+  const deleteItemFromCart = () => {
+    dispatch(deleteItem({ userId: userId, productId: product?.id }));
+    setNotificationMessage("Item is deleted from the cart successfully");
+    setShowNotification(true);
+  };
+
   return (
     <div className="d-flex justify-content-between">
       <div className="item-img w-25 me-2 d-flex align-items-center">
         <img
           src={process.env.PUBLIC_URL + product?.imageURL}
           width="100%"
-          alt="ss"
+          alt="product"
         />
       </div>
       <div className="item-info w-75">
@@ -52,9 +61,7 @@ const CartItem = ({ product }) => {
         <Trash3Fill
           size={30}
           className="trash-icon"
-          onClick={() =>
-            dispatch(deleteItem({ userId: userId, productId: product?.id }))
-          }
+          onClick={deleteItemFromCart}
         />
       </div>
     </div>

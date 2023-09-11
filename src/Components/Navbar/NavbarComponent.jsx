@@ -14,8 +14,8 @@ import { useCart } from "../../Utils/Context";
 import { useSearch } from "../../Utils/Context";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./NavbarComponent.css";
 import { logout } from "../../Redux/Slices/Auth-Slice";
+import "./NavbarComponent.css";
 
 const NavbarComponent = () => {
   const user = useSelector((state) => state.auth);
@@ -28,6 +28,7 @@ const NavbarComponent = () => {
   const navigate = useNavigate();
 
   const toggleCart = () => {
+    // check if there is a user first
     if (user.token) {
       setShowCart(!showCart);
     }
@@ -35,6 +36,7 @@ const NavbarComponent = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    // move to home page to show the products he searched for
     if (location.pathname !== "/") {
       navigate("/");
     }
@@ -42,9 +44,9 @@ const NavbarComponent = () => {
   };
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="bg-dark p-3" fixed>
+    <Navbar collapseOnSelect expand="lg" className="bg-dark p-3">
       <Container>
-        <Navbar.Brand href="#home" className="text-light">
+        <Navbar.Brand href="/" className="text-light">
           Basha Shop
         </Navbar.Brand>
         <Navbar.Toggle

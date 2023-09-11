@@ -1,0 +1,30 @@
+@media screen and (max-width: 1100px) {
+  .Notification {
+    width: 30% !important;
+  }
+}
+
+@media screen and (max-width: 876px) {
+  .Notification {
+    width: 40% !important;
+  }
+}
+
+@media screen and (max-width: 678px) {
+  .Notification {
+    width: 45% !important;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .Notification {
+    width: 60% !important;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .Notification {
+    width: 100% !important;
+    right: 0 !important;
+  }
+}

@@ -7,7 +7,6 @@ import { setCategory } from "../../Redux/Slices/Categories-Slice";
 const Categories = () => {
   const dispatch = useDispatch();
   const categories = ["Headphone", "Airpods", "Speaker", "Smartwatch"];
-
   return (
     <section className="mb-5">
       <Container>

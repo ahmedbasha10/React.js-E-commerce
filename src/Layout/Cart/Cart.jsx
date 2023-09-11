@@ -5,15 +5,17 @@ import { useCart } from "../../Utils/Context";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  const { showCart, setShowCart } = useCart();
   const userId = useSelector((state) => state.auth.user?._id);
-  const cart = useSelector((state) => state.cart[userId]);
- 
+  const cart = useSelector((state) => state.cart[userId]); // get cart of this user
+  const { showCart, setShowCart } = useCart();
+
   const totalPrice = useMemo(() => {
     if (cart?.length === 0) {
       return 0;
     }
-    return cart?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0;
+    return (
+      cart?.reduce((acc, item) => acc + item.price * item.quantity, 0) || 0
+    );
   }, [cart]);
 
   const handleClose = () => {
@@ -29,7 +31,11 @@ const Cart = () => {
         <div>
           {cart?.length === 0 || !cart ? (
             <div>
-              <img src="/assets/Empty-cart.jpeg" alt="empty cart" className="w-100 h-100"/>
+              <img
+                src="/assets/Empty-cart.jpeg"
+                alt="empty cart"
+                className="w-100 h-100"
+              />
             </div>
           ) : (
             cart?.map((item) => (

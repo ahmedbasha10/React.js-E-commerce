@@ -3,13 +3,15 @@ import { addItemToCart } from "../../Redux/Slices/Cart-Slice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Row } from "react-bootstrap";
 import { CartPlusFill } from "react-bootstrap-icons";
+import { useNotification } from "../../Utils/Context";
 import "./ProductDetailsComponent.css";
 
 const ProductDetailsComponent = ({ product }) => {
-  const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.user._id);
+  const dispatch = useDispatch();
   // quantity of product for adding item to cart
   const [quantity, setQuantity] = useState(1);
+  const { setShowNotification, setNotificationMessage } = useNotification();
 
   const increment = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -23,8 +25,11 @@ const ProductDetailsComponent = ({ product }) => {
   };
 
   const handleAddItemToCart = () => {
+    // add quantity to the product before sending it to the state
     const newProduct = { ...product, quantity: quantity };
-    dispatch(addItemToCart({userId, newProduct}));
+    dispatch(addItemToCart({ userId, newProduct }));
+    setShowNotification(true);
+    setNotificationMessage("Item is added to the cart.");
   };
 
   // Image zooming when hover
@@ -34,7 +39,7 @@ const ProductDetailsComponent = ({ product }) => {
 
   const handleMouseEnter = () => {
     // Set initial zoom level when mouse enters the image
-    setZoomLevel(1.5);
+    setZoomLevel(1.3);
   };
 
   const handleMouseMove = (e) => {

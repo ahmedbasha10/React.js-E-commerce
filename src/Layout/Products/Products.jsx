@@ -25,8 +25,9 @@ const Products = () => {
       : products.data;
 
     if (search) {
+      const trimmedSearch = search.trim();
       filtered = filtered.filter((product) =>
-        product.name.toLowerCase().includes(search.toLowerCase())
+        product.name.toLowerCase().includes(trimmedSearch.toLowerCase())
       );
     }
     return filtered;
@@ -46,6 +47,7 @@ const Products = () => {
       <Container>
         <div className="d-flex justify-content-between">
           <h4 className="products-header mb-4">POPULAR PRODUCTS</h4>
+          {/* used to select number of products to display per page */}
           <DropdownButton
             itemsPerPage={itemsPerPage}
             setItemsPerPage={setItemsPerPage}
@@ -65,6 +67,7 @@ const Products = () => {
               ))}
           </div>
         )}
+        {/* contains pagination pages to move between them */}
         <PaginationList
           currentPage={currentPage}
           totalPages={totalPages}

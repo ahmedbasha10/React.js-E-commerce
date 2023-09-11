@@ -1,15 +1,13 @@
-import React, { useRef, useState } from "react";
-import "./Login-Signup.css";
-import { useDispatch } from "react-redux";
-import { login, signup } from "../../Api/api";
-import { setToken, setUser } from "../../Redux/Slices/Auth-Slice";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Login, Signup } from "../../Redux/Slices/Auth-Slice";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "react-bootstrap";
+import "./Login-Signup.css";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const errorSignupField = useRef();
-  const errorLoginField = useRef();
   const [signupFormData, setSignupFormData] = useState({
     username: "",
     password: "",
@@ -18,6 +16,11 @@ const LoginSignup = () => {
     username: "",
     password: "",
   });
+
+  const signupError = useSelector((state) => state.auth.signupError);
+  const loginError = useSelector((state) => state.auth.loginError);
+  const signuploading = useSelector((state) => state.auth.signuploading);
+  const loginLoading = useSelector((state) => state.auth.loginloading);
 
   const handleSignupChange = (e) => {
     const { name, value } = e.target;
@@ -31,34 +34,26 @@ const LoginSignup = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    try {
-      const response = await signup(signupFormData);
-      if (response.error) {
-        errorSignupField.current.textContent = response.error;
-      } else {
-        dispatch(setUser(response.data.user));
-        dispatch(setToken(response.data.token));
+    dispatch(Signup(signupFormData))
+      .unwrap() // resolve promise
+      .then(() => {
         navigate("/");
-      }
-    } catch (error) {
-      errorSignupField.current.textContent = error;
-    }
+      })
+      .catch(() => {
+        navigate("/user");
+      });
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await login(loginFormData);
-      if (response.error) {
-        errorLoginField.current.textContent = response.error;
-      } else {
-        dispatch(setUser(response.data.user));
-        dispatch(setToken(response.data.token));
+    dispatch(Login(loginFormData))
+      .unwrap()
+      .then(() => {
         navigate("/");
-      }
-    } catch (error) {
-      errorLoginField.current.textContent = error;
-    }
+      })
+      .catch(() => {
+        navigate("/user");
+      });
   };
 
   return (
@@ -70,10 +65,12 @@ const LoginSignup = () => {
             <label htmlFor="choose" aria-hidden="true">
               Sign up
             </label>
-            <p
-              className="error-message text-danger ms-3 fw-bold"
-              ref={errorSignupField}
-            ></p>
+            {signupError && (
+              <p className="error-message text-danger ms-3 fw-bold">
+                {signupError}
+              </p>
+            )}
+
             <input
               type="text"
               name="username"
@@ -88,7 +85,9 @@ const LoginSignup = () => {
               required
               onChange={handleSignupChange}
             />
-            <button onClick={handleSignUp}>Sign up</button>
+            <button onClick={handleSignUp}>
+              {signuploading ? <Spinner animation="border" /> : <>Sign up</>}
+            </button>
           </form>
         </div>
 
@@ -97,10 +96,11 @@ const LoginSignup = () => {
             <label htmlFor="choose" aria-hidden="true">
               Login
             </label>
-            <p
-              className="error-message text-danger ms-3 fw-bold"
-              ref={errorLoginField}
-            ></p>
+            {loginError && (
+              <p className="error-message text-danger ms-3 fw-bold">
+                {loginError}
+              </p>
+            )}
             <input
               type="text"
               name="username"
@@ -115,7 +115,9 @@ const LoginSignup = () => {
               required
               onChange={handleLoginChange}
             />
-            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleLogin}>
+              {loginLoading ? <Spinner animation="border" /> : <>login</>}
+            </button>
           </form>
         </div>
       </div>

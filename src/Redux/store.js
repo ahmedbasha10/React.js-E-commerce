@@ -12,6 +12,7 @@ const statesNames = {
   AUTH_STATE: "authState",
 };
 
+// load states from localstorage
 const productsInitialState = loadState(statesNames.PRODUCTS_STATE);
 const cartInitialState = loadState(statesNames.CART_STATE);
 const authInitialState = loadState(statesNames.AUTH_STATE);
@@ -31,19 +32,18 @@ export const store = configureStore({
   },
 });
 
+// if the state is changed save it to localstorage
 store.subscribe(() => {
   const authState = store.getState().auth;
   saveState(authState, statesNames.AUTH_STATE);
 
   const productsState = store.getState().products;
   if (!isEqual(productsState, productsInitialState)) {
-    console.log("products saving");
     saveState(productsState, statesNames.PRODUCTS_STATE);
   }
 
   const cartState = store.getState().cart;
   if (!isEqual(cartState, cartInitialState)) {
-    console.log("cart saving");
     saveState(cartState, statesNames.CART_STATE);
   }
 });

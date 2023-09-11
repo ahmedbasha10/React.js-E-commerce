@@ -10,6 +10,8 @@ import usePagination from "../../Utils/PaginationHook";
 import PaginationList from "../../Components/PaginationList/PaginationList";
 import DropdownButton from "../../Components/DropdownButton/DropdownButton";
 import "./ProductDetails.css";
+// import Notification from "../../Components/Notification/Notification";
+// import { useNotification } from "../../Utils/Context";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -24,16 +26,15 @@ const ProductDetails = () => {
   );
   const isLoading = useSelector((state) => state.products.loading);
   const products = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
   // find products that is related for the product by category
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return products.data.filter(
+    return products?.data.filter(
       (p) => p.category === product?.category && p.id !== parseInt(productId)
     );
   }, [product, products, productId]);
-
-  const dispatch = useDispatch();
 
   // If product is not found in our state fetch it by id from server
   useEffect(() => {

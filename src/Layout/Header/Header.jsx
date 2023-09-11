@@ -8,7 +8,7 @@ const Header = () => {
     <header className="header text-center mb-5">
       <Container>
         <div className="row d-flex align-items-center">
-          <div className="header-content col-lg-6 col-md-6 col-sm-12">
+          <div className="header-content col-lg-6 col-md-6 col-sm-12 mt-5">
             <div className="header-head">
               <h1>SALES</h1>
             </div>
@@ -23,7 +23,7 @@ const Header = () => {
             </div>
           </div>
           <div className="col-lg-6 col-md-6 col-sm-12 header-img">
-            <img src={BannerImage} alt="banner"/>
+            <img src={BannerImage} alt="banner" />
           </div>
         </div>
       </Container>

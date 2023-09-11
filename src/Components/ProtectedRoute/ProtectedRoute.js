@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }) => {
   const isAuthenticated = useSelector((state) => {
     return state.auth.token !== undefined && state.auth.token !== null;
   });
-  console.log(isAuthenticated);
+  // if user is authenticated give him access else return him to login page
   return isAuthenticated ? children : <Navigate to="/user" />;
 };
 
