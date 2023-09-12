@@ -6,6 +6,8 @@ In the project directory, run:
 # Add your Back-End API at Auth-Slice for user authentication
 Now run:
 ### `npm start`
+
+[![E-commerce React & Redux-toolkit]([https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/0.jpg](https://www.youtube.com/watch?v=vm6FXJ_qzqQ))]
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
