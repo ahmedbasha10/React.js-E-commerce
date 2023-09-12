@@ -7,7 +7,7 @@ In the project directory, run:
 Now run:
 ### `npm start`
 
-[![E-commerce React & Redux-toolkit]([https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/0.jpg](https://www.youtube.com/watch?v=vm6FXJ_qzqQ))]
+[![E-commerce React & Redux-toolkit](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/0.jpg)]([https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE](https://www.youtube.com/watch?v=vm6FXJ_qzqQ))
 <!-- # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
