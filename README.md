@@ -7,6 +7,7 @@ In the project directory, run:
 Now run:
 ### `npm start`
 
+# project video
 [![E-commerce React & Redux-toolkit](https://img.youtube.com/vi/vm6FXJ_qzqQ/0.jpg)](https://www.youtube.com/watch?v=vm6FXJ_qzqQ)
 <!-- # Getting Started with Create React App
 
