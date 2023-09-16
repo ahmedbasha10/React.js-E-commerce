@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Login, Signup } from "../../Redux/Slices/Auth-Slice";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../../Redux/Slices/Auth-Slice";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import "./Login-Signup.css";
+import {
+  useLoginMutation,
+  useSignupMutation,
+} from "../../Redux/Slices/AuthApi-Slice";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -17,10 +21,30 @@ const LoginSignup = () => {
     password: "",
   });
 
-  const signupError = useSelector((state) => state.auth.signupError);
-  const loginError = useSelector((state) => state.auth.loginError);
-  const signuploading = useSelector((state) => state.auth.signuploading);
-  const loginLoading = useSelector((state) => state.auth.loginloading);
+  const [
+    signup,
+    {
+      isLoading: isSignupLoading = false,
+      isError: isSignupError = false,
+      error: signupError = "",
+    },
+  ] = useSignupMutation();
+  const [
+    login,
+    {
+      isLoading: isLoginLoading = false,
+      isError: isLoginError = false,
+      error: LoginError = "",
+    },
+  ] = useLoginMutation();
+
+  const canSignup =
+    [signupFormData.username, signupFormData.password].every(Boolean) &&
+    !isSignupLoading;
+
+  const canLogin =
+    [loginFormData.username, loginFormData.password].every(Boolean) &&
+    !isLoginLoading;
 
   const handleSignupChange = (e) => {
     const { name, value } = e.target;
@@ -34,26 +58,30 @@ const LoginSignup = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
-    dispatch(Signup(signupFormData))
-      .unwrap() // resolve promise
-      .then(() => {
+    if (canSignup) {
+      try {
+        const { user, token } = await signup(signupFormData).unwrap();
+        dispatch(setUser(user));
+        dispatch(setToken(token));
         navigate("/");
-      })
-      .catch(() => {
+      } catch (err) {
         navigate("/user");
-      });
+      }
+    }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    dispatch(Login(loginFormData))
-      .unwrap()
-      .then(() => {
+    if (canLogin) {
+      try {
+        const { user, token } = await login(loginFormData).unwrap();
+        dispatch(setUser(user));
+        dispatch(setToken(token));
         navigate("/");
-      })
-      .catch(() => {
+      } catch (err) {
         navigate("/user");
-      });
+      }
+    }
   };
 
   return (
@@ -65,12 +93,11 @@ const LoginSignup = () => {
             <label htmlFor="choose" aria-hidden="true">
               Sign up
             </label>
-            {signupError && (
+            {isSignupError ? (
               <p className="error-message text-danger ms-3 fw-bold">
-                {signupError}
+                {signupError.data.message}
               </p>
-            )}
-
+            ) : null}
             <input
               type="text"
               name="username"
@@ -85,8 +112,8 @@ const LoginSignup = () => {
               required
               onChange={handleSignupChange}
             />
-            <button onClick={handleSignUp}>
-              {signuploading ? <Spinner animation="border" /> : <>Sign up</>}
+            <button disabled={!canSignup} onClick={handleSignUp}>
+              {isSignupLoading ? <Spinner animation="border" /> : <>Sign up</>}
             </button>
           </form>
         </div>
@@ -96,9 +123,9 @@ const LoginSignup = () => {
             <label htmlFor="choose" aria-hidden="true">
               Login
             </label>
-            {loginError && (
+            {isLoginError && (
               <p className="error-message text-danger ms-3 fw-bold">
-                {loginError}
+                {LoginError.data.message}
               </p>
             )}
             <input
@@ -115,8 +142,8 @@ const LoginSignup = () => {
               required
               onChange={handleLoginChange}
             />
-            <button onClick={handleLogin}>
-              {loginLoading ? <Spinner animation="border" /> : <>login</>}
+            <button disabled={!canLogin} onClick={handleLogin}>
+              {isLoginLoading ? <Spinner animation="border" /> : <>login</>}
             </button>
           </form>
         </div>

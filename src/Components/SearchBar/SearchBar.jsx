@@ -11,7 +11,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <Form inline>
+    <Form inline="true">
       <Row>
         <Col xs="auto" className="pe-0">
           <Form.Control type="text" className="mr-sm-2" ref={searchRef} />

@@ -1,28 +1,34 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import Product from "../../Components/Product/Product";
 import { Container, Spinner } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../Redux/Slices/Products-Slice";
+import { useSelector } from "react-redux";
 import usePagination from "../../Utils/PaginationHook";
 import DropdownButton from "../../Components/DropdownButton/DropdownButton";
 import PaginationList from "../../Components/PaginationList/PaginationList";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import "./Products.css";
+import { useGetProductsQuery } from "../../Redux/Slices/productsApi-slice";
 
 const Products = () => {
-  const products = useSelector((state) => state.products);
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+    error,
+  } = useGetProductsQuery();
+  // const products = useSelector((state) => state.products);
   const category = useSelector((state) => state.categories);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchProducts());
+  // }, []);
 
   const filteredProducts = useMemo(() => {
     let filtered = category
-      ? products.data.filter((product) => product.category === category)
-      : products.data;
+      ? products.filter((product) => product.category === category)
+      : products;
 
     if (search) {
       const trimmedSearch = search.trim();
@@ -57,12 +63,12 @@ const Products = () => {
             setItemsPerPage={setItemsPerPage}
           />
         </div>
-        {products?.loading ? (
+        {isLoading ? (
           <div className="text-center">
             <Spinner animation="border" />
           </div>
-        ) : products?.error ? (
-          <h1>Error... {products.error}</h1>
+        ) : isError ? (
+          <h1>Error... {error}</h1>
         ) : (
           <div className="row">
             {paginatedProducts &&

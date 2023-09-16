@@ -1,8 +1,6 @@
 import React, { useEffect, useMemo } from "react";
 import { Container } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { fetchProductById } from "../../Redux/Slices/Products-Slice";
 import Product from "../../Components/Product/Product";
 import ProductDetailsComponent from "../../Components/ProductDetails/ProductDetailsComponent";
 import Spinner from "react-bootstrap/Spinner";
@@ -10,6 +8,10 @@ import usePagination from "../../Utils/PaginationHook";
 import PaginationList from "../../Components/PaginationList/PaginationList";
 import DropdownButton from "../../Components/DropdownButton/DropdownButton";
 import "./ProductDetails.css";
+import {
+  useGetProductQuery,
+  useGetProductsQuery,
+} from "../../Redux/Slices/productsApi-slice";
 
 const ProductDetails = () => {
   const location = useLocation();
@@ -19,25 +21,16 @@ const ProductDetails = () => {
 
   const { productId } = useParams();
 
-  const product = useSelector((state) =>
-    state.products.data.find((product) => product.id === parseInt(productId))
-  );
-  const isLoading = useSelector((state) => state.products.loading);
-  const products = useSelector((state) => state.products);
-  const dispatch = useDispatch();
+  const { data: product = {}, isLoading } = useGetProductQuery(productId);
+  const { data: products = [] } = useGetProductsQuery();
 
   // find products that is related for the product by category
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    return products?.data.filter(
+    return products?.filter(
       (p) => p.category === product?.category && p.id !== parseInt(productId)
     );
   }, [product, products, productId]);
-
-  // If product is not found in our state fetch it by id from server
-  useEffect(() => {
-    if (!product) dispatch(fetchProductById(productId));
-  }, [product, dispatch, productId]);
 
   // Pagination Hook
   const [

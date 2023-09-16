@@ -5,7 +5,7 @@ const usePagination = (Products) => {
   const [itemsPerPage, setItemsPerPage] = useState(8);
 
   const totalPages = useMemo(() => {
-    return Math.ceil(Products.length / itemsPerPage);
+    return Math.ceil(Products?.length / itemsPerPage);
   }, [Products, itemsPerPage]);
 
   const paginatedProducts = useMemo(() => {
