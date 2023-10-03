@@ -68,7 +68,7 @@ const Products = () => {
             <Spinner animation="border" />
           </div>
         ) : isError ? (
-          <h1>Error... {error}</h1>
+          <h1>Error... {error.error}</h1>
         ) : (
           <div className="row">
             {paginatedProducts &&
