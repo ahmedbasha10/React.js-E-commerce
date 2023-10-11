@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/github.io/React.js-E-commerce/static/css/main.381f7de2.css",
+    "main.js": "/github.io/React.js-E-commerce/static/js/main.e6c3b29b.js",
+    "static/media/cat-2.jpg": "/github.io/React.js-E-commerce/static/media/cat-2.c783bc351239091a6ba7.jpg",
+    "static/media/cat-3.jpg": "/github.io/React.js-E-commerce/static/media/cat-3.a8441fd9d3326934ed92.jpg",
+    "static/media/cat-1.jpg": "/github.io/React.js-E-commerce/static/media/cat-1.aa15048c6d1dc6572a81.jpg",
+    "static/media/form.jpg": "/github.io/React.js-E-commerce/static/media/form.03e2e8b72d2499b6ff65.jpg",
+    "static/media/cat-4.jpg": "/github.io/React.js-E-commerce/static/media/cat-4.427b423a2e66b77f3ba8.jpg",
+    "static/media/banner-img.png": "/github.io/React.js-E-commerce/static/media/banner-img.0412d66280a0273effa2.png",
+    "static/media/newsletter-bg.jpeg": "/github.io/React.js-E-commerce/static/media/newsletter-bg.b6f22313149bdbb35069.jpeg",
+    "index.html": "/github.io/React.js-E-commerce/index.html",
+    "main.381f7de2.css.map": "/github.io/React.js-E-commerce/static/css/main.381f7de2.css.map",
+    "main.e6c3b29b.js.map": "/github.io/React.js-E-commerce/static/js/main.e6c3b29b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.381f7de2.css",
+    "static/js/main.e6c3b29b.js"
+  ]
+}
